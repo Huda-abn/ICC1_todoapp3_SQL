@@ -1,4 +1,4 @@
-# ICC1_todoapp_2 - Azure
+# ICC1_todoapp_3 - Azure App Service and Azure Database for PostgreSQL
 
 ## Purpose
 
