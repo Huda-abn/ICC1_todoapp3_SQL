@@ -1,0 +1,11 @@
+[project]
+name = "icc1-todoapp-2"
+version = "0.1.0"
+description = "ICC1 To-Do app - SQLite by default, or Azure Cosmos DB / Azure Database for PostgreSQL when configured"
+requires-python = ">=3.9"
+dependencies = [
+    "azure-cosmos>=4.5,<5.0",
+    "psycopg2-binary>=2.9,<3.0",
+    "flask>=3.0,<4.0",
+    "python-dotenv>=1.0,<2.0",
+]

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo App Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+<body>
+    <h1>Todo List</h1>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="New Task">
+        <select name="priority">
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+        </select>
+        <input type="submit" value="Add">
+    </form>
+    <ul>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                {{ task['task'] }} - Priority: 
+                {% if task['priority'] == 1 %}
+                    Low
+                {% elif task['priority'] == 2 %}
+                    Medium
+                {% else %}
+                    High
+                {% endif %}
+                    <form action="{{ url_for('delete_task', task_id=task['id']) }}" method="post" style="display: inline;">
+                        <input type="submit" value="Delete">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+       <a href="{{ url_for('home') }}" class="button-link">Go home</a>
+
+</body>
+</html>
