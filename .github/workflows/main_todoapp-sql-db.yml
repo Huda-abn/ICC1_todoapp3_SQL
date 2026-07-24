@@ -1,4 +1,8 @@
-name: Build and deploy Python app to Azure Web App - huda-ada
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
+
+name: Build and deploy Python app to Azure Web App - todoapp-sql-db
 
 on:
   push:
@@ -10,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read # This is required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -20,13 +24,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Install dependencies into .python_packages so Azure can load them directly
-      - name: Install dependencies
+      - name: Create virtual environment and install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install --target=".python_packages/lib/site-packages" -r requirements.txt
+          python -m venv antenv
+          source antenv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-      # Upload everything including .python_packages
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
@@ -47,6 +51,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'huda-ada'
+          app-name: 'todoapp-sql-db'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ADCDBD36BA0C4F6787E20AB8311D15E2 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B2D42BA2980B4ECA92A17B60D51DDA6C }}
